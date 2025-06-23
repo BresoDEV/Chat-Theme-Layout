@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat com Bot</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #222;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .chat-header .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header .info p {
+            margin: 0;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #111;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            line-height: 1.4;
+        }
+
+        .message.user {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message.Bot {
+            background-color: #333;
+            color: white;
+            align-self: flex-start;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .message.Bot .img-perfil {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .message.Bot .bubble {
+            background-color: #333;
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .message.Bot img {
+            width: 90%;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: #222;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: #333;
+            color: white;
+        }
+
+        .chat-input button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+        }
+
+        @media (max-width: 600px) {
+            .message {
+                max-width: 85%;
+            }
+        }
+
+        textarea {
+            background-color: #111;
+            color: aliceblue;
+            border-radius: 2px;
+            resize: none;
+            width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="chat-header">
+        <img id="fotoBot" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Bot">
+        <div class="info">
+            <p><strong id="nomebot">Bot</strong></p>
+            <p id="statusBot" style="font-size: 0.9em; color: #ccc;"></p>
+        </div>
+    </div>
+
+    <!-- Mensagens -->
+    <div class="chat-body" id="chat">
+
+    </div>
+
+    <!-- Campo de envio -->
+    <div class="chat-input">
+        <input type="text" id="mensagemInput" placeholder="Digite sua mensagem...">
+        <button id="btnEnviar">Enviar</button>
+    </div>
+
+    <script>
+
+
+        var int = Math.floor(Math.random() * 99);
+
+        //Foto de perfil do bot
+        const nome_bot = "Juvenal Cara de Pau";
+        const foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
+         
+
+
+
+
+
+
+
+        document.getElementById('nomebot').innerHTML = nome_bot;
+        document.getElementById('fotoBot').src = foto_Perfil_bot;
+
+
+
+        //------------------
+        const chat = document.getElementById('chat');
+        const input = document.getElementById('mensagemInput');
+        const btn = document.getElementById('btnEnviar');
+        const status = document.getElementById('statusBot');
+
+        status.innerHTML = 'Visto por ultimas as ' + HoraAntes();
+
+
+
+
+        function HoraAntes() {
+            var d = new Date();
+            var h = d.getHours();
+            var t = d.getMinutes();
+            if (t > 5)
+                t = t - 3;
+            else { t = 56; h = h - 1 }
+            10 > h ? h = '0' + h : h = h;
+            10 > t ? t = '0' + t : t = t;
+            return h + ':' + t;
+        }
+
+
+        const respostasBot = [
+            "<img src='https://img.icons8.com/?size=512&id=32023&format=png'>",
+            "<textarea>Ola bom dia teste</textarea>",
+        ];
+
+        function scrollChatParaBaixo() {
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function adicionarMensagemUsuario(texto) {
+            const msg = document.createElement('div');
+            msg.className = 'message user';
+            msg.textContent = texto;
+            chat.appendChild(msg);
+            scrollChatParaBaixo();
+        }
+
+        function adicionarRespostaBot() {
+            const resposta = respostasBot[Math.floor(Math.random() * respostasBot.length)];
+            const container = document.createElement('div');
+            container.className = 'message Bot';
+            container.innerHTML = `
+            <img class="img-perfil" src="${foto_Perfil_bot}">
+                <div class="bubble">${resposta}</div>
+            `;
+            chat.appendChild(container);
+            status.textContent = 'online';
+            scrollChatParaBaixo();
+        }
+
+        function enviarMensagem() {
+            const texto = input.value.trim();
+            if (texto === "") return;
+
+            adicionarMensagemUsuario(texto);
+            input.value = "";
+            scrollChatParaBaixo();
+
+            setTimeout(() => {
+                status.textContent = 'online';
+
+                setTimeout(() => {
+                    status.textContent = 'digitando...';
+
+                    setTimeout(() => {
+                        adicionarRespostaBot();
+                    }, 1000 + Math.random() * 1000);
+                }, 2000);
+            }, 1000);
+        }
+
+        btn.addEventListener('click', enviarMensagem);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                enviarMensagem();
+            }
+        });
+    </script>
+</body>
+
+</html>
