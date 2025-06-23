@@ -165,46 +165,37 @@
     <script>
 
         //------------------------------
-        AplicarPreferenciasViaGET();
 
         var nome_bot = "Juvenal Cara de Pau";
+        var meuNome = "";
         var foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
         var delayResposta = 2000;
 
+        AplicarPreferenciasViaGET();
+
         function AplicarPreferenciasViaGET() {
             const params = new URLSearchParams(window.location.search);
-            
-            if (params.get("nomeBot") !== null){
-                nome_bot = params.get("nomeBot") 
+
+            if (params.get("nomeBot") !== null) {
+                nome_bot = params.get("nomeBot")
             }
-            if (params.get("fotoBot") !== null){
-                foto_Perfil_bot = params.get("fotoBot") 
+            if (params.get("fotoBot") !== null) {
+                foto_Perfil_bot = params.get("fotoBot")
             }
-            if (params.get("delayResposta") !== null){
-                delayResposta = params.get("delayResposta") 
+            if (params.get("delayResposta") !== null) {
+                delayResposta = params.get("delayResposta")
             }
-             
-             
+            if (params.get("meuNome") !== null) {
+                meuNome = params.get("meuNome")
+            }
+
+
+            document.getElementById('nomebot').innerHTML = nome_bot;
+            document.getElementById('fotoBot').src = foto_Perfil_bot;
         }
         //------------------------------
 
-        
-
-        //Foto de perfil do bot  
-        
-
-
-
-
-
-
-
-        document.getElementById('nomebot').innerHTML = nome_bot;
-        document.getElementById('fotoBot').src = foto_Perfil_bot;
-
-
-
-        //------------------
+ 
         const chat = document.getElementById('chat');
         const input = document.getElementById('mensagemInput');
         const btn = document.getElementById('btnEnviar');
@@ -220,9 +211,21 @@
         function Cerebro(pergunta) {
             var respostinha = ''
 
-            if (pergunta == '/dev' || pergunta == '$dev') {
-                respostinha = 'Digitou dev' + emojiAleatorio()
+            //Comandos dev
+            if (pergunta.includes('/dev') || pergunta.includes('$dev')) {
+                respostinha = MsgDevMenu()
             }
+            else if (pergunta.includes('nomeBot=')) {
+                nomeBot = pergunta.replace("nomeBot=","")
+                respostinha = "Otimo, meu nome temporario agora é "+nomeBot
+                document.getElementById('nomebot').innerHTML = nome_bot;
+            }
+            else if (pergunta.includes('meuNome=')) {
+                meuNome = pergunta.replace("meuNome=","")
+                respostinha = "Perfeito, gostei do seu nome "+meuNome +"&#128151;. Durante essa conversa, irei lhe chamar pelo nome"
+            }
+
+            //------------------------------
             else {
                 respostinha = Naoentendeu();
             }
@@ -230,6 +233,20 @@
             return respostinha
         }
 
+
+        function MsgDevMenu() { 
+            return `Voce acaba de ativar o menu dev ${emojiAleatorio()}
+            <br>
+            Vou te ensinar alguns comandos ${meuNome}
+            <br>
+            Para definir meu nome temporario, digite:<br>
+            nomeBot=Patolino
+            <br><br>
+            Para definir o seu nome, digite:<br>
+            meuNome=Frajola
+            <br><br>
+            `;
+        }
 
         function Naoentendeu() {
             var frases = [
