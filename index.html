@@ -170,7 +170,7 @@
         //Foto de perfil do bot
         const nome_bot = "Juvenal Cara de Pau";
         const foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
-
+        var delayResposta = 2000;
 
 
 
@@ -198,12 +198,26 @@
 
         function Cerebro(pergunta) {
             var respostinha = ''
-            if (pergunta == '/dev') {
-                respostinha = 'Digitou dev' +emojiAleatorio()
+
+            if (pergunta == '/dev' || pergunta == '$dev') {
+                respostinha = 'Digitou dev' + emojiAleatorio()
             }
+            else{
+                respostinha = Naoentendeu();
+            }
+
             return respostinha
         }
 
+
+        function Naoentendeu() {
+            var frases = [
+                'Nao entendi muito bem oque voce quis dizer ' + emojiAleatorio(),
+                'Nao entendi muito bem oque voce quis dizer ' + emojiAleatorio(),
+                'Nao entendi muito bem oque voce quis dizer ' + emojiAleatorio(),
+            ]
+            return frases[Math.floor(Math.random() * frases.length)]
+        }
 
         function emojiAleatorio() {
             const emojis = [
@@ -262,7 +276,21 @@
             input.value = "";
             scrollChatParaBaixo();
 
-            setTimeout(() => {
+            if (status.textContent != 'online')//primeira mensagem do dia
+            {
+                setTimeout(() => {
+                    status.textContent = 'online';
+
+                    setTimeout(() => {
+                        status.textContent = 'digitando...';
+
+                        setTimeout(() => {
+                            Responder(texto);
+                        }, 1000 + Math.random() * 1000);
+                    }, 2000);
+                }, 1000);
+            }
+            else {
                 status.textContent = 'online';
 
                 setTimeout(() => {
@@ -271,8 +299,8 @@
                     setTimeout(() => {
                         Responder(texto);
                     }, 1000 + Math.random() * 1000);
-                }, 2000);
-            }, 1000);
+                }, delayResposta);
+            }
         }
 
         btn.addEventListener('click', enviarMensagem);
