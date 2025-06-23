@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat com Bot</title>
+    <title>Chat</title>
     <style>
         * {
             box-sizing: border-box;
@@ -170,7 +170,7 @@
         //Foto de perfil do bot
         const nome_bot = "Juvenal Cara de Pau";
         const foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
-         
+
 
 
 
@@ -189,9 +189,30 @@
         const btn = document.getElementById('btnEnviar');
         const status = document.getElementById('statusBot');
 
-        status.innerHTML = 'Visto por ultimas as ' + HoraAntes();
+        status.innerHTML = 'Visto por ultimo as ' + HoraAntes();
 
 
+
+
+
+
+        function Cerebro(pergunta) {
+            var respostinha = ''
+            if (pergunta == '/dev') {
+                respostinha = 'Digitou dev' +emojiAleatorio()
+            }
+            return respostinha
+        }
+
+
+        function emojiAleatorio() {
+            const emojis = [
+                '&#128578;', '&#128151;', '&#128521;', '&#128076;',
+                '&#127773;', '&#9728;', '&#9992;', '&#128148;', '&#128293;',
+                '&#128526;', '&#128077;', '&#128514;', '&#128531;', '&#129304;'
+            ]
+            return emojis[Math.floor(Math.random() * emojis.length)]
+        }
 
 
         function HoraAntes() {
@@ -207,16 +228,12 @@
         }
 
 
-        const respostasBot = [
-            "<img src='https://img.icons8.com/?size=512&id=32023&format=png'>",
-            "<textarea>Ola bom dia teste</textarea>",
-        ];
 
         function scrollChatParaBaixo() {
             chat.scrollTop = chat.scrollHeight;
         }
 
-        function adicionarMensagemUsuario(texto) {
+        function Falar(texto) {
             const msg = document.createElement('div');
             msg.className = 'message user';
             msg.textContent = texto;
@@ -224,8 +241,8 @@
             scrollChatParaBaixo();
         }
 
-        function adicionarRespostaBot() {
-            const resposta = respostasBot[Math.floor(Math.random() * respostasBot.length)];
+        function Responder(r) {
+            const resposta = Cerebro(r);
             const container = document.createElement('div');
             container.className = 'message Bot';
             container.innerHTML = `
@@ -241,7 +258,7 @@
             const texto = input.value.trim();
             if (texto === "") return;
 
-            adicionarMensagemUsuario(texto);
+            Falar(texto);
             input.value = "";
             scrollChatParaBaixo();
 
@@ -252,7 +269,7 @@
                     status.textContent = 'digitando...';
 
                     setTimeout(() => {
-                        adicionarRespostaBot();
+                        Responder(texto);
                     }, 1000 + Math.random() * 1000);
                 }, 2000);
             }, 1000);
