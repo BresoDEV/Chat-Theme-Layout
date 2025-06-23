@@ -164,13 +164,34 @@
 
     <script>
 
+        //------------------------------
+        AplicarPreferenciasViaGET();
 
-        var int = Math.floor(Math.random() * 99);
-
-        //Foto de perfil do bot
-        const nome_bot = "Juvenal Cara de Pau";
-        const foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
+        var nome_bot = "Juvenal Cara de Pau";
+        var foto_Perfil_bot = 'https://randomuser.me/api/portraits/men/32.jpg';
         var delayResposta = 2000;
+
+        function AplicarPreferenciasViaGET() {
+            const params = new URLSearchParams(window.location.search);
+            
+            if (params.get("nomeBot") !== null){
+                nome_bot = params.get("nomeBot") 
+            }
+            if (params.get("fotoBot") !== null){
+                foto_Perfil_bot = params.get("fotoBot") 
+            }
+            if (params.get("delayResposta") !== null){
+                delayResposta = params.get("delayResposta") 
+            }
+             
+             
+        }
+        //------------------------------
+
+        
+
+        //Foto de perfil do bot  
+        
 
 
 
@@ -202,7 +223,7 @@
             if (pergunta == '/dev' || pergunta == '$dev') {
                 respostinha = 'Digitou dev' + emojiAleatorio()
             }
-            else{
+            else {
                 respostinha = Naoentendeu();
             }
 
