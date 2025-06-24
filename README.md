@@ -1,9 +1,6 @@
 # Chat Layout
-
-Preview:
-https://bresodev.github.io/Chat-Theme-Layout/
  
-Configurações que podem ser passadas via GET:
+Confirgurações que podem ser passadas via GET:
 
 | Parametro     | Funcao                                            | Exemplo                       |
 | ------ | ------ | ------ |
