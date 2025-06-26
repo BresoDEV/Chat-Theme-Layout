@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conversas</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000000;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #1f1f1f;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #00bcd4;
+    }
+
+    .contact-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #2d2d2d;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border: 1px solid #2a2a2a;
+    }
+
+    .contact:hover {
+      background-color: #2a2a2a;
+    }
+
+    .contact img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-name {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #00bcd4;
+    }
+
+    .contact-status {
+      font-size: 0.9em;
+      color: #ccc;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .contact-name {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Minhas Conversas</h1>
+  </header>
+
+  <div class="contact-list" id="contact-list">
+    
+    
+    <div class="contact" onclick="abrirConversa('carlos')">
+      <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Carlos">
+      <div class="contact-info">
+        <div class="contact-name">Carlos Mendes</div>
+        <div class="contact-status">Blz! Depois te chamo.</div>
+      </div>
+    </div>
+
+    <div class="contact" onclick="abrirConversa('paulo')">
+      <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Paulo">
+      <div class="contact-info">
+        <div class="contact-name">Paulo</div>
+        <div class="contact-status">Ocupado</div>
+      </div>
+    </div>
+
+     
+  </div>
+
+  <script>
+
+    
+
+    function abrirConversa(usuario) {
+      // Redireciona para o chat (você pode trocar para usar parâmetros ou localStorage)
+      window.location.href = 'chat.html?user=' + usuario;
+    }
+  </script>
+
+</body>
+</html>
