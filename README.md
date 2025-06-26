@@ -1,7 +1,12 @@
 # Chat Layout
 
 Preview:
+Chat:
 https://bresodev.github.io/Chat-Theme-Layout/
+
+Main:
+https://bresodev.github.io/Chat-Theme-Layout/main.html
+
  
 Confirgurações que podem ser passadas via GET:
 
